@@ -1,0 +1,102 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<!-- <ion-view view-title="{{chat.name}}">
+  <ion-content class="padding">
+    <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
+    <p>
+      {{chat.lastText}}
+    </p>
+  </ion-content>
+</ion-view> 
+
+<ion-nav-buttons side="right">
+      <button class="button ion-power" ng-click="btnLogoff()">
+        Log off
+      </button>
+    </ion-nav-buttons>
+-->
+
+<ion-view view-title="Activities">
+
+<ion-content id="divListCardForActivities" >
+  
+    <input type="hidden" id="hdnClassId" value={{class_id}}>
+
+<!-- div for header buttons-->
+  <div ng-if="notParent" >
+    <div class="row" id="divActivityOptions">
+      <div class="col">
+          <button id="btnActivitiesControl" class="button button-icon" ng-click="goToPostActivity(class_id)">
+          <i class="icon ion-ios-compose">  </i> Post </button>
+      </div>
+      <div class="col">
+          <button id="btnActivitiesControl" class="button button-icon" ng-click="createEvent(class_id)">
+          <i class="icon ion-ios-calendar">  </i> New  </button>
+      </div>
+      <div class="col">
+          <button id="btnActivitiesControl" class="button button-icon" ng-click="viewEvents(class_id)">
+          <i class="icon ion-ios-calendar">  </i> View </button>
+      </div>
+    </div>
+  </div>
+<!-- EOF div for header buttons-->      
+  
+     <button ng-if="ifNoActivities" class="button icon-left ion-happy-outline button-full button-stable">
+      No Activities to show now
+     </button>
+
+     <ion-refresher pulling-text="Pull to refresh..." on-refresh="loadNewerStories(class_id)">
+     </ion-refresher>
+
+    <div class="card">
+      <div class="item item-text-wrap">
+        Class: 
+      </div>
+    </div>
+     <!-- div for list of activities-->
+      <div id="divListCardForActivities" class="list card" ng-repeat="activity in activityList track by activity.id">
+        
+        <!-- activity title div-->
+        <div id="divActivityHeader" class="item item-avatar">
+          <img src='img/mike.png'>
+          <h2>{{activity.title}} </h2>
+          <span am-time-ago="activity.created_at" ></span>
+        </div>
+
+        <!-- activity message div-->
+        <div class="item item-body">
+          <img ng-show="{{activity.checkimage_url}}" id="imgPost" class="full-image" src='http://45.55.47.132{{activity.image_url}}' >
+          <p>
+            {{activity.message}}
+          </p>
+        </div>
+
+        <!-- comment div-->
+        <div class="item tabs tabs-secondary tabs-icon-left">
+          <a class="tab-item" href="#">
+            <i class="icon ion-"></i> </a>
+          
+          <a class="tab-item" href="#">
+            <i class="icon ion-"></i> </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-"></i> </a>
+        </div>
+  
+      </div>
+ 
+<!-- EOF div for list of activities-->
+        <ion-infinite-scroll
+          immediate-check="false"
+          ng-if="!noMoreItemsAvailable"
+          on-infinite="loadOlderStories(class_id)"
+          distance="3%">
+        </ion-infinite-scroll>
+    
+  </ion-content>
+</ion-view>
+ 
+

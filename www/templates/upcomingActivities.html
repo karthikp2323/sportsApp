@@ -1,0 +1,54 @@
+<ion-view cache-view="false" view-title="Events">
+
+  <ion-content class="padding">
+
+ 
+<button ng-hide="btnHdnShowCalendar" ng-click="showCalendar()" class="button button-block button-calm icon-left ion-calendar assertive">Show Calendar</button>
+  
+  <div ng-if="isVisible" >
+    <flex-calendar options="options" events="events"></flex-calendar>
+  </div>
+
+
+    		<div ng-if="ifTeacher" ng-repeat="event in eventsInADay" class="divEventlist">
+
+                <ion-item class="item-divider event">
+                    <i class=" icon ion-clock"> {{event.event_time}} </i> 
+                </ion-item>
+                <ion-item class="item-checkbox item-checkbox-right item-button-right" >
+                    <div>
+                        
+                        <h2>{{event.event_title}}</h2>
+                        <p><span>{{event.event_description}}</span></p>
+                        <p><i class="icon ion-location"></i> {{event.event_location}} </p>
+
+                    </div>
+                    <a class="button button-icon ion-chevron-right icon-accessory" href="#/tab/eventDetails/{{event.id}}/{{event.classroom_id}}">
+  					        </a>
+                </ion-item>
+
+         </div>
+
+         <div ng-if="ifParent" ng-repeat="event in eventsInADay" class="divEventlist">
+
+                <ion-item class="item-divider event">
+                    <i class=" icon ion-clock"> {{event.event_time}} </i> 
+                </ion-item>
+                <ion-item class="item-checkbox item-checkbox-right item-button-right" >
+                    <div>
+                        
+                        <h2>{{event.event_title}}</h2>
+                        
+                        <p><i class="icon ion-location"></i> {{event.event_location}} </p>
+
+                    </div>
+                    <a class="button button-icon ion-chevron-right icon-accessory" href="#/tab/eventDetails/{{event.id}}/{{event.classroom_id}}">
+                    </a>
+                </ion-item>
+
+         </div>
+
+
+  </ion-content>
+
+</ion-view>

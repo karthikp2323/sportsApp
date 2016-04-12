@@ -1,0 +1,71 @@
+
+
+<ion-view view-title="Login">
+<ion-content class="content-login" scroll="false">
+
+  <div id="divLogin" >
+
+	
+	<form name="loginForm" novalidate>
+		<div class="row" >
+			<div class="col">
+			<div class="item item-input">  <!-- ng-class="{'haserror': isError}">-->
+				<input type="text" placeholder="Username"
+					ng-model="credentials.user" id="txtUserName" name="uName" required >
+			</div>
+			</div> 
+		</div>
+
+		<!-- <code>userType = {{credentials.user}}</code><br>
+  		<code>formValid = {{loginForm.$valid}}</code><br> -->
+
+			<div class="row">
+				<div class="col">
+				<div class="item item-input">
+					<input type="password" placeholder="Password"
+						ng-model="credentials.password" name="password" required>
+				</div>
+				</div>
+			</div>
+		
+
+		<div class="row">
+			<div class="col">
+				<li class="item item-toggle">
+     				Login as Parent
+	     			<label class="toggle toggle-positive">
+		       			<input type="checkbox" ng-model="credentials.userParent">
+			       		<div class="track">
+			         	<div class="handle"></div>
+			       		</div>
+	     			</label>
+  				</li>
+			</div>	
+		</div>
+		
+	    <div class="row" ng-show="loginFailed" style="margin-left: 75px;">
+			<i class="ion-alert-circled"></i> Invalid credentials
+	    </div>
+
+	    <ion-spinner ng-show="ionSpinner" icon="spiral"></ion-spinner>
+
+		<div class="row" >
+			<!--<input type="submit" ng-click="login()" value="Login" /> -->
+			<button class="button button-block button-positive"
+				ng-click="login(loginForm.$valid)">Login</button>
+		</div>
+
+    </form>
+  </div>
+
+		<div class="panel-footer">
+                      
+            <a ng-click="openLink()"> Terms</a> |
+            <a href="mailto:schoolapp@dsiginc.com">Contact</a>
+            <div class="copyright">©  DSIG Inc. All Rights Reserved.</div>
+
+        </div>
+
+</ion-content>
+
+</ion-view>

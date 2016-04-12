@@ -1,0 +1,110 @@
+<!-- side menu -->
+<ion-side-menus>
+    <!-- side menu content, it contains the page footer tabs-->
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-stable bar-calm">
+          <ion-nav-buttons side="left">
+                  <button menu-toggle="left"
+                   class="button button-icon button-clear ion-navicon-round">
+                  </button>
+          </ion-nav-buttons>
+          
+          <ion-nav-back-button>
+          </ion-nav-back-button>
+        </ion-nav-bar>
+    
+    
+    <ion-nav-view>
+      <ion-tabs class="tabs-icon-bottom tabs-color-active-calm">
+
+        <!-- Dashboard Tab -->
+        <ion-tab title="Home" icon-off="ion-ios-home" icon-on="ion-ios-home" href="#/tab/home">
+          <ion-nav-view name="tab-home"></ion-nav-view>
+        </ion-tab>
+
+        <!-- Settings Tab 
+        <ion-tab title="Settings" icon-off="ion-ios-cog" icon-on="ion-ios-cog" href="">
+        <ion-nav-view name="postActivity"></ion-nav-view>
+        </ion-tab>-->
+
+      </ion-tabs>
+
+    </ion-nav-view>  
+      </ion-side-menu-content>
+
+        <ion-side-menu side="left">
+        <ion-content ng-controller="SideMenuCtrl" >
+        
+          <ion-list ng-if="isTeacher"> <!--Ion List for teacher-->
+
+              <ion-item class="item item-icon-left item-divider">
+                <i class="icon ion-university balanced"></i>
+                <h2>My Classes</h2>
+              </ion-item>
+
+              <ion-item menu-close class="item-remove-animate item-avatar item-icon-right" ng-repeat="class in sideMenu" type="item-text-wrap" href="#/tab/class/{{class.id}}">
+                <h2>{{class.class_name}}</h2> 
+                <p>{{class.class_location}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+              </ion-item>
+
+              <ion-item class="item item-icon-left item-divider">
+                <i class="icon ion-ios-calendar-outline balanced"></i>
+                <h2>Events</h2>
+              </ion-item>
+
+              <ion-item menu-close class="item-remove-animate item-avatar item-icon-right"  href="#/tab/upcomingActivities/0" >
+                <h2> Upcoming Events </h2> 
+              </ion-item>
+
+             <!-- <ion-item menu-close class="item-remove-animate item-avatar item-icon-left" href="#/tab/addStudent/{{sideMenu}}">
+                <i class="icon ion-ios-plus-outline balanced"></i>
+                <h2>Add Students</h2>
+              </ion-item> -->
+
+              <ion-item menu-close class="item-icon-left" href="#/login">
+                <i class="icon ion-ios-cloudy-night-outline balanced"></i>
+                <h2>Log Off</h2>
+              </ion-item>
+
+          </ion-list> <!--EOF Ion List for teacher-->
+
+
+
+
+          <ion-list ng-if="isParent"> <!--Ion List for Parent-->
+
+              <ion-item class="item item-icon-left item-divider">
+                <i class="icon ion-university balanced"></i>
+                <h2>My Kids</h2>
+              </ion-item>
+
+              <ion-item menu-close class="item-remove-animate item-avatar item-icon-right" ng-repeat="kid in sideMenu" type="item-text-wrap" href="#/tab/class/{{kid.id}}">
+                <h2>{{kid.first_name}} {{kid.last_name}}</h2> 
+                <i class="icon ion-chevron-right icon-accessory"></i>
+              </ion-item>
+
+              <ion-item class="item item-icon-left item-divider">
+                <i class="icon ion-calendar balanced"></i>
+                <h2>Events</h2>
+              </ion-item>
+
+              <ion-item menu-close class="item-remove-animate item-avatar item-icon-right"  href="#/tab/upcomingActivities/{{string_student_Ids}}" >
+                <h2> Upcoming Events </h2> 
+                <i class="icon ion-chevron-right icon-accessory"></i>
+              </ion-item>
+              
+              <ion-item menu-close class="item-remove-animate item-avatar item-icon-left" href="#/login">
+                <i class="icon ion-power balanced"></i>
+                <h2>Log Off</h2>
+              </ion-item>
+
+          </ion-list> <!--EOF Ion List for Parent-->
+
+        </ion-content>
+      </ion-side-menu >
+</ion-side-menus > <!-- EOF side menu -->
+
+
+   
+

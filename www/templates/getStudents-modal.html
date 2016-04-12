@@ -1,0 +1,22 @@
+
+  <ion-modal-view>
+    <ion-header-bar>
+      <button class="button button-clear button-positive" ng-click="closeModal('cancel')"> Cancel </button>
+      <h1 class="title">Select Student</h1>
+      <button class="button button-clear button-positive" ng-click="closeModal('select')"> Select </button>
+    </ion-header-bar>
+    <ion-content>
+	      <div class="list">
+
+		   
+
+		    <ion-radio  value="{{student['0'].id}}"  ng-model="selectStudent.id" ng-repeat="student in StudentList" ng-click="setStudentName({{student['0'].id}})">  
+		     <h2 id="headerStudentName{{student['0'].id}}">{{student['0'].first_name}} {{student['0'].last_name}} </h2>
+		     <p> Parent: {{student['1'].dad_fname}} {{student['1'].dad_lname}} </p> 
+		    </ion-radio>
+
+		  </div>
+
+    </ion-content>
+  </ion-modal-view>
+

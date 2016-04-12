@@ -1,0 +1,89 @@
+
+<ion-view view-title="Add Student">
+	<ion-content class="padding">
+<div id="divPost" class="card" >
+ 
+  <form name="addStudentForm" novalidate>
+   <div >
+
+   	<div class="row" ng-hide="divResult" >
+   	 	<div class="col">
+   		<label class="item">
+  	    	<span class="label ion-checkmark-circled" id="divSuccessLabel" >Student Added!!</span>
+  	  </label>
+  	  </div>
+   	</div>
+
+  <label class="item-input item-stacked-label">
+    <span class="lblWidth input-label">Student Details</span>
+  </label>
+   	 <div class="row" >
+     	  <div class="col" ng-class="{'haserror': !addStudentForm.stdFName.$valid}">
+     			  <input type="text" name="stdFName" placeholder="First name" ng-model="student.fname" required>  	
+    	  </div>
+        <div class="col" ng-class="{'haserror': !addStudentForm.stdLName.$valid}">
+            <input type="text" name="stdLName" placeholder="Last name" ng-model="student.lname" required>
+        </div>
+   	 </div> 
+
+     <div class="row" ng-show="student.grantAccess">
+        <div class="col" ng-class="{'haserror': !addStudentForm.stdDOB.$valid}">
+            <input type="Date" name="stdDOB"  ng-model="student.DOB" required>   
+        </div>
+        <div class="col" ng-class="{'haserror': !addStudentForm.stdEmail.$valid}">
+            <input type="text" name="stdEmail" placeholder="Email" ng-model="student.email" required>
+        </div>
+     </div> 
+
+     <div class="row" ng-show="student.grantAccess">
+        
+        <div class="col" ng-class="{'haserror': !addStudentForm.stdContact.$valid}">
+            <input type="text" name="stdContact" placeholder="Contact" ng-model="student.contact" required>   
+        </div>
+     </div> 
+
+
+
+
+  <ion-checkbox class="stdGrantAcess" ng-model="student.grantAccess">Grant Student Access</ion-checkbox>   
+       
+
+<label class="item-input item-stacked-label">
+    <span class="lblWidth input-label">Parent Details</span>
+</label>
+     <div class="row" >
+        <div class="col" ng-class="{'haserror': !addStudentForm.parentFName.$valid}">
+            <input type="text" name="parentFName" placeholder="First name" ng-model="parent.fname" required>    
+        </div>
+        <div class="col" ng-class="{'haserror': !addStudentForm.parentLName.$valid}">
+            <input type="text" name="parentLName" placeholder="Last name" ng-model="parent.lname" required>
+        </div>
+     </div> 
+
+     <div class="row" >
+        <div class="col" ng-class="{'haserror': !addStudentForm.parentContact.$valid}">
+            <input type="text" name="parentContact" placeholder="Contact" ng-model="parent.contact" required>   
+        </div>
+        <div class="col" ng-class="{'haserror': !addStudentForm.parentEmail.$valid}">
+            <input type="text" name="parentEmail" placeholder="Email" ng-model="parent.email" required>
+        </div>
+     </div> 
+
+
+
+         <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive"
+                    ng-click="addStudent()">Add Student</button>
+            
+          </div>
+         </div>
+         
+   </div>
+
+</form>
+
+</div>
+
+	</ion-content>
+</ion-view>

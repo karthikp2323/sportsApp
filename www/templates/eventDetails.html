@@ -1,0 +1,54 @@
+<!-- Controller: -->
+<ion-view view-title="Event Details">
+	<ion-content >
+<div class="talk-cover centered" >
+            <h3>{{eventDetail.table.event_title}}</h3>
+            <p><i class="icon ion-calendar"></i> {{eventDetail.table.event_date}} at {{eventDetail.table.event_time}}</p>
+            <p><i class="icon ion-location"></i> {{eventDetail.table.event_location}}</p>
+        </div>
+
+         <div class="padding">{{eventDetail.table.event_description}}</div>
+
+         <div ng-if="ifTeacher" class="list">
+
+            <label class="item item-input item-select">
+              <div class="input-label">
+                Select to see the list
+              </div>
+              <select ng-model="myOption.value" ng-change="getAcceptedList()">
+                <option value='Invited'>Invited : {{eventDetail.table.invitationCount[0][0]}} </option>
+                <option value='Accepted'>Accepted : {{eventDetail.table.acceptedCount}} </option>
+                <option value='Declined'>Declined : {{eventDetail.table.declinedCount}} </option>
+              </select>
+            </label>
+
+        </div>
+
+    
+        <div ng-if="ifParent" class="list">
+          <a id="tagParentEventStatus" class="item item-icon-left" href="#" ng-click="changeEventStatus({{eventDetail.table.id}})">
+            <i ng-class="eventAddedToCalendar ? 'icon ion-ios-checkmark-outline' : 'icon ion-ios-close-outline'"></i>{{statusLabel}}</a>
+            
+          
+
+          <a id="tagParentOptionForEvent" class="item item-icon-left" href="#" ng-click="optionEventStatus({{eventDetail.table.id}},{{eventDetail.table.event_status_id}})">
+            <i class="icon ion-ios-minus-outline"></i>{{functionLabel}}</a>
+            
+            
+
+        </div>
+
+        <div ng-if="isVisibleAccptedList" ng-repeat="accptedParent in accptedParents">
+
+          <a id="itemUserList" class="item item-avatar" href="#">
+            <img src="img/ionic.png">
+            <h2>{{accptedParent.dad_fname}} {{accptedParent.dad_lname}}</h2>
+            <p> </p>
+          </a>
+
+         
+
+        </div>
+    
+	</ion-content>
+</ion-view>

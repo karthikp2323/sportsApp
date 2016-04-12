@@ -1,0 +1,171 @@
+/* Empty. Add your own CSS if you like */
+
+/* style for side items to darken main items*/
+.mainItem{
+  min-height: 5px;
+  background-color: #F5F5F5;
+}
+
+.background, .background .pane, .background   {
+    background-color: #f2f2f2;
+}
+#divPost{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#imgPost{
+	width: 100%
+}
+#divLogin{
+	
+  width: 300px;
+  margin: auto;
+  
+  display: block;
+  margin-top: 180px;
+}
+#divListCardForActivities{
+	padding-top: 0px;
+
+}
+#imgTakePicture{
+	height: 200px;
+	width: 290px;
+}
+.ion-images:before{
+  font-size: 30px;
+}
+
+button i.ion-ios-camera:before{
+  font-size: 30px;
+}
+.ion-ios-compose:before{
+  font-size: 30px;
+}
+#divSuccessLabel{
+	font-size: 15px;
+	color: #1aa3ff;
+}
+.item h2{
+	font-weight: 450;
+}
+
+#itemUserList{
+	min-height: 70px;
+}
+.item-avatar,
+.item-avatar .item-content{
+	min-height: 7px;
+}
+#divActivityHeader{
+	height: 60px;
+}
+.item-body{
+	padding: 6px;
+}
+#divActivityOptions{
+	height: 70px;
+    width: inherit;
+    padding-left: 20px;
+    align-content: center;
+    background-color: #4D4D4D;
+}
+#divActivityOptions .button{
+	color: white !important;
+	font-size: inherit;
+}
+/****  color for time in events *****/
+.event {
+    color: #11c1f3;
+    font-weight: 300;
+}
+#itemEventTime{
+	background-color: #F5F5F5
+}
+
+/****  size of buttons and font in activities page *****/
+
+.button-icon .icon::before{
+	font-size: 15px
+} 
+#btnActivitiesControl{
+	font-size: 12px
+}
+
+/****  css for event details *****/
+.talk-cover {
+    padding: 10px;
+    padding-top: 20px;
+    background-size: cover;
+    background-color: #4D4D4D;
+}
+
+.talk-cover h3 {
+    color: white !important;
+    font-weight: 450;
+}
+
+.talk-cover p {
+    color: white !important;
+}
+
+.centered {
+    text-align: center;
+    font-weight: 300;
+}
+.divEventlist{
+	padding-top: 5px
+}
+.padding, .input-label{
+	font-weight: 300;
+}
+
+div.img img {
+   width: 120%;
+height: 600px;
+} 
+
+/* Style for form error's */
+.haserror {
+  border-left: 1px solid #cc2511;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(204, 37, 17);
+}
+
+/* Style for login spinner in login.html */
+.spinner svg{
+  position: relative;
+    
+    left: 45%;
+    margin-right: -50%;
+}
+
+/* style for checkbox that grants student access in addStudent.html*/
+.stdGrantAcess{
+border-width: 0px;
+font-size: 14px;
+}
+
+.lblWidth{
+  width: inherit;
+}
+
+
+/* Login page css */
+.content-login{
+  background: url("../img/misc2.jpg") no-repeat;
+  background-size: 100%;
+  background-color: white;
+  
+}
+.panel-footer{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  
+  text-align: center;
+}
+  

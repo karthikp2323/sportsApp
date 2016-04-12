@@ -1,0 +1,83 @@
+<!-- Controller: -->
+<ion-view view-title="Create Event">
+	<ion-content class="padding">
+<div id="divPost" class="card" >
+ 
+  <form name="eventForm" novalidate>
+   <div >
+
+   	<div class="row" ng-hide="divResult" >
+
+ 	 	<div class="col">
+ 		<label class="item">
+	    	<span class="label ion-checkmark-circled" id="divSuccessLabel" >Event Created!!</span>
+	    	
+  		</label>
+	  </div>
+
+   	</div>
+ 	 <div class="row" >
+
+ 	  <div class="col" ng-class="{'haserror': !eventForm.eventTitle.$valid}">
+ 		<label class="item item-input item-stacked-label">
+	    	<span class="input-label">Event Title</span>
+	    	<input type="text" name="eventTitle" placeholder="Let's meetup" ng-model="newEvent.title" required>
+  		</label>
+	  </div>
+ 	</div>
+
+ 	<div class="row"> 
+ 	   <div class="col" ng-class="{'haserror': !eventForm.eventDescription.$valid}">
+ 		 <label class="item item-input item-stacked-label">
+    	 	<span class="input-label">Description</span>
+    		<input type="text" name="eventDescription" placeholder="Say something more" ng-model="newEvent.description" required>
+  		 </label>
+   	   </div>
+ 	</div>
+
+  <div class="row"> 
+    <div class="col" ng-class="{'haserror': !eventForm.eventDate.$valid}">
+     <label class="item item-input item-stacked-label">
+        <span class="input-label">Event Date</span>
+        <input type="Date" name="eventDate" id="txtEventDate" placeholder="Mon dd, yyyy" ng-model="newEvent.date" required >
+       </label>
+       </div>
+     
+  </div>
+
+  <div class="row">
+    <div class="col" ng-class="{'haserror': !eventForm.eventTime.$valid}">
+     <label class="item item-input item-stacked-label" >
+        <span class="input-label">Event Time</span>
+        <input type="time" name="eventTime" id="txtEventTime" placeholder="00:00 am" ng-model="newEvent.time" required> <!-- ng-click="showTimePicker()" -->
+       </label>
+       </div>
+  </div>
+
+  <div class="row"> 
+     <div class="col" ng-class="{'haserror': !eventForm.eventLocation.$valid}">
+     <label class="item item-input item-stacked-label">
+        <span class="input-label">Event Location</span>
+        <input type="text" name="eventLocation" placeholder="5131 Post Road, Dublin, OH." ng-model="newEvent.location" required>
+       </label>
+       </div>
+  </div>
+
+ 	
+         <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive"
+        ng-click="createNewEvent(eventForm.$valid)">Create Event</button>
+            
+          </div>
+           
+         </div>
+         
+   </div>
+
+</form>
+
+</div>
+
+	</ion-content>
+</ion-view>

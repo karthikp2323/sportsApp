@@ -1,0 +1,84 @@
+<!-- Controller: -->
+<ion-view view-title="Post Activity">
+	<ion-content class="padding">
+<div id="divPost" class="card" >
+  <form name="activityForm" novalidate>
+   <div >
+
+   	<div class="row" ng-hide="divResult" >
+
+ 	 	<div class="col">
+ 		<label class="item">
+	    	<span class="label ion-checkmark-circled" id="divSuccessLabel" >Activity Posted!!</span>
+	    	
+  		</label>
+	  </div>
+
+   	</div>
+
+    <div class="row" >
+
+      <div class="col" >
+      
+          <ion-radio ng-model="selectStudent.choice" ng-value="'Everyone'" ng-click="openModal()"> Everyone </ion-radio>
+         <ion-radio ng-model="selectStudent.choice" ng-value="'SelectStudent'" ng-click="openModal()" > {{selectStudent.name == ' ' ? 'Select Student' : selectStudent.name}} </ion-radio>    
+              
+      </div>
+
+      
+   </div>
+
+
+ 	 <div class="row" >
+
+ 	  <div class="col" ng-class="{'haserror': !activityForm.activityTitle.$valid}">
+ 		<label class="item item-input item-floating-label">
+	    	<span class="input-label">Title</span>
+	    	<input type="text" name="activityTitle" placeholder="Title" ng-model="activity.title" required>
+  		</label>
+	  </div>
+ 	</div>
+
+ 	<div class="row"> 
+ 	   <div class="col" ng-class="{'haserror': !activityForm.activityMore.$valid}">
+ 		 <label class="item item-input item-floating-label">
+    	 	<span class="input-label">Say something more..</span>
+    	
+        <textarea rows="4" cols="50" name="activityMore" placeholder="Say something more.." ng-model="activity.message" required>
+        
+        </textarea>
+  		 </label>
+   	   </div>
+ 	</div>
+
+ 	<img id="imgTakePicture" ng-hide="hideTakePicture" ng-src="{{imgURI}}">
+         <div class="row">
+          <div class="col">
+            <button class="button button-icon" ng-click="takePhoto()">
+              <i class="ion-ios-camera"> <br> </i> </button>
+          </div>
+           <div class="col">
+             <button class="button button-icon" ng-click="choosePhoto()">
+               <i class="ion-images"> <br> </i>  </button>
+           </div>
+           <div class="col">
+         	<button class="button button-icon" ng-click="savePost(activityForm.$valid)">
+               <i class="ion-ios-compose"> <br> </i>   </button>
+         </div>
+         </div>
+         
+   </div>
+
+</form>
+
+
+
+</div>
+
+<!-- Camera code 
+ <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+    <img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
+    <button class="button" ng-click="takePicture()">Take Picture</button>
+<!-- EOF Camera code -->
+	</ion-content>
+</ion-view>
