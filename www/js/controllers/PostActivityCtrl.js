@@ -40,8 +40,8 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
             sourceType : Camera.PictureSourceType.CAMERA, 
             allowEdit : true,
             encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 300,
-            targetHeight: 300,
+            targetWidth: 750,
+            targetHeight: 750,
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: false
         };
@@ -67,8 +67,8 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
             sourceType : Camera.PictureSourceType.PHOTOLIBRARY, 
             allowEdit : true,
             encodingType: Camera.EncodingType.JPEG,
-            targetWidth: 300,
-            targetHeight: 300,
+            targetWidth: 750,
+            targetHeight: 750,
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: false
         };
@@ -97,7 +97,7 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
    //var imageUrl = element.find("imgTakePicture"); 
 
     $http({
-            url: 'http://45.55.47.132/api/activities',
+            url: 'http://localhost:3000/api/activities',
             method: "post",
             transformRequest: function(obj) {
                       var str = [];
@@ -135,16 +135,18 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
     $scope.selectStudent.id = studentId;
   };
 
-          $ionicModal.fromTemplateUrl('templates/getStudents-modal.html', {
+
+    //Configuring the Modal pop-up
+      $ionicModal.fromTemplateUrl('templates/getStudents-modal.html', {
             scope: $scope,
             animation: 'slide-in-up'
           }).then(function(modal) {
             $scope.modal = modal;
-          });
-          $scope.openModal = function() {
-            
-            
+      });
 
+     //Modal open function     
+      $scope.openModal = function() {
+     
            if($scope.selectStudent.choice == "Everyone"){
               $scope.selectStudent.name = "Select Student";
               $scope.selectStudent.id = " ";
@@ -153,7 +155,7 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
                
                $scope.modal.show();
                if($scope.StudentList.length == 0){ 
-                  $http.get('http://45.55.47.132/api/students/getStudentsForClass?classroomId='+$scope.classId) 
+                  $http.get('http://localhost:3000/api/students/getStudentsForClass?classroomId='+$scope.classId) 
                      .success(function(response){
                   
                       $scope.StudentList = response; 
@@ -161,10 +163,10 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
                   });
                 }
            }
-           
+      };
 
-          };
-          $scope.closeModal = function(choice) {
+      //Modal close function
+      $scope.closeModal = function(choice) {
             
             $scope.modal.hide();
             if (choice == "cancel") {
@@ -173,7 +175,7 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
               $scope.selectStudent.id = " ";
             };
             
-          };
+      };
           //Cleanup the modal when we're done with it!
           $scope.$on('$destroy', function() {
             $scope.modal.remove();

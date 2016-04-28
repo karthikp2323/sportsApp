@@ -27,7 +27,7 @@
     <input type="hidden" id="hdnClassId" value={{class_id}}>
 
 <!-- div for header buttons-->
-  <div ng-if="notParent" >
+  <div style="margin-bottom: -30px;" ng-if="notParent" >
     <div class="row" id="divActivityOptions">
       <div class="col">
           <button id="btnActivitiesControl" class="button button-icon" ng-click="goToPostActivity(class_id)">
@@ -52,19 +52,21 @@
      <ion-refresher pulling-text="Pull to refresh..." on-refresh="loadNewerStories(class_id)">
      </ion-refresher>
 
-    <div class="card">
-      <div class="item item-text-wrap">
-        Class: 
+    
+    <ion-list ng-repeat="(key, value) in activityList | groupBy: 'created_at'">
+      <div class="item item-divider" id="activity-divider" ion-affix data-affix-within-parent-with-class="list">
+        <h2> {{key}} </h2>
       </div>
-    </div>
-     <!-- div for list of activities-->
-      <div id="divListCardForActivities" class="list card" ng-repeat="activity in activityList track by activity.id">
+
+      
+      <!-- div for list of activities-->
+      <div  id="divListCardForActivities" class="list card" ng-repeat="activity in value">
         
         <!-- activity title div-->
         <div id="divActivityHeader" class="item item-avatar">
           <img src='img/mike.png'>
-          <h2>{{activity.title}} </h2>
-          <span am-time-ago="activity.created_at" ></span>
+          <h2>{{activity.title}} <b>   </b> </h2>
+          <h4 style="color: rgb(132, 132, 132);"><i class="ion-clock"></i> {{activity.time_at | date : "h:mma"}} {{(studentList | filter : {id: activity.student_id})[0].first_name}}</h4>
         </div>
 
         <!-- activity message div-->
@@ -89,14 +91,31 @@
       </div>
  
 <!-- EOF div for list of activities-->
+    </ion-list>
+
+
+      
+
         <ion-infinite-scroll
           immediate-check="false"
           ng-if="!noMoreItemsAvailable"
           on-infinite="loadOlderStories(class_id)"
-          distance="3%">
+          distance="-5px">
         </ion-infinite-scroll>
     
+
+
   </ion-content>
+  
+  <div class="bar bar-footer">
+    <a class="tab-item" href="#">
+            <i class="icon ion-"></i> </a>
+          
+          <a class="tab-item" href="#tab/messages/{{class_id}}">
+            <i class="icon ion-ios-email-outline"></i> </a>
+          <a class="tab-item" href="#">
+            <i class="icon ion-"></i> </a>
+  </div>
 </ion-view>
- 
+   
 

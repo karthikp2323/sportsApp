@@ -15,19 +15,7 @@
     
     
     <ion-nav-view>
-      <ion-tabs class="tabs-icon-bottom tabs-color-active-calm">
-
-        <!-- Dashboard Tab -->
-        <ion-tab title="Home" icon-off="ion-ios-home" icon-on="ion-ios-home" href="#/tab/home">
-          <ion-nav-view name="tab-home"></ion-nav-view>
-        </ion-tab>
-
-        <!-- Settings Tab 
-        <ion-tab title="Settings" icon-off="ion-ios-cog" icon-on="ion-ios-cog" href="">
-        <ion-nav-view name="postActivity"></ion-nav-view>
-        </ion-tab>-->
-
-      </ion-tabs>
+      
 
     </ion-nav-view>  
       </ion-side-menu-content>
@@ -36,6 +24,10 @@
         <ion-content ng-controller="SideMenuCtrl" >
         
           <ion-list ng-if="isTeacher"> <!--Ion List for teacher-->
+              <ion-item menu-close class="item-icon-left" href="#/tab/home">
+                <i class="icon ion-ios-home-outline balanced"></i>
+                <h2>Home</h2>
+              </ion-item>
 
               <ion-item class="item item-icon-left item-divider">
                 <i class="icon ion-university balanced"></i>
@@ -55,6 +47,11 @@
 
               <ion-item menu-close class="item-remove-animate item-avatar item-icon-right"  href="#/tab/upcomingActivities/0" >
                 <h2> Upcoming Events </h2> 
+              </ion-item>
+
+              <ion-item menu-close class="item-icon-left" href="#/tab/home">
+                <i class="icon ion-ios-chatbubble-outline balanced"></i>
+                <h2>Messages</h2>
               </ion-item>
 
              <!-- <ion-item menu-close class="item-remove-animate item-avatar item-icon-left" href="#/tab/addStudent/{{sideMenu}}">

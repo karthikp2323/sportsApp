@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl', function($ionicPlatform, $scope, $http, $state, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $timeout, $cordovaSQLite) {
+app.controller('LoginCtrl', function($ionicPlatform, $scope, $http, $state, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $timeout, $cordovaSQLite, Database, EventDetail) {
 
   //$ionicSideMenuDelegate.canDragContent(false)
 $scope.$on('$ionicView.enter', function() {
@@ -23,25 +23,8 @@ $scope.$on('$ionicView.enter', function() {
   $scope.loginFailed = false;
   $scope.ionSpinner = false;
 
+ 
 
-  function addToDb(firstname, lastname){
-        var query = "INSERT INTO people (firstname, lastname) VALUES (?,?)";
-        //alert(query);
-        //var db = $cordovaSQLite.openDB({ name: "my.db" });
-        
-        
-        db = $cordovaSQLite.openDB("my.db");
-        
-        $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
-        alert("After db open");
-        $cordovaSQLite.execute(db, query, [firstname, lastname]).then(function(res) {
-            alert("INSERT ID -> " + res.insertId);
-        }, function (err) {
-            alert(err);
-        });
-        
-
-  };
 
   $scope.openLink = function(){
           var url = "http://www.schooljuntos.com/home/terms"
@@ -51,9 +34,8 @@ $scope.$on('$ionicView.enter', function() {
 
   $scope.login = function(formValid) {
 
-
-    
-
+    //addToDb("fname","lname");
+   Database.dropTable() 
    $scope.loginFailed = false;
    $scope.ionSpinner = true;
 
@@ -91,7 +73,7 @@ $scope.$on('$ionicView.enter', function() {
                    else {
                     window.localStorage['parent_id'] = response.id
                     window.localStorage['role'] = "Parent"
-                    window.localStorage['user_name'] = response.dad_fname + response.dad_lname
+                    window.localStorage['user_name'] = response.dad_fname + " " + response.dad_lname
                     $state.go('tab.home');
                    }
                    $scope.ionSpinner = false;
@@ -102,24 +84,27 @@ $scope.$on('$ionicView.enter', function() {
                 });
     }
     else{
-    
-      $http.get('http://45.55.47.132//api/home/attempt_login?username=' + $scope.credentials.user +'&password=' +$scope.credentials.password) 
+   
+      $http.get('http://localhost:3000/api/home/attempt_login?username=' + $scope.credentials.user +'&password=' +$scope.credentials.password) 
       .success(function(response){
               if(response == 'Invalid Credentials'){
                     $scope.loginFailed = true;
               }
               else {
-              window.localStorage['user_id'] = response.id
-              window.localStorage['school_id'] = response.school_id
-              window.localStorage['role_id'] = response.role_id
-              window.localStorage['user_name'] = response.first_name + response.last_name
+              window.localStorage['user_id'] = response.authorized_user.id
+              window.localStorage['school_id'] = response.authorized_user.school_id
+              window.localStorage['role_id'] = response.authorized_user.role_id
+              window.localStorage['user_name'] = response.authorized_user.first_name + " " +response.authorized_user.last_name
+              window.localStorage['role'] = response.role_type
 
               //$ionicSideMenuDelegate.canDragContent(true)
               //$ionicHistory.nextViewOptions({historyRoot: true});
+              Database.addToDb(response.authorized_user, response.role_type)
+        
               $state.go('tab.home');
               }
               $scope.ionSpinner = false;
-                 
+               console.log(response);  
             }).error(function (response) {
                    $scope.loginFailed = true;
                    $scope.ionSpinner = false;

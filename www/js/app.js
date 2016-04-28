@@ -1,14 +1,16 @@
-
+var db = null;
 var app = angular.module('starter', 
   ['ionic', 
-  
+  'angular.filter',
   'starter.services', 
   'ngCordova', 
   'base64', 
   'angularMoment', 
-  'flexcalendar' ])
+  'flexcalendar',
+  'ion-affix'
+   ])
 
-.run(function($ionicPlatform, $cordovaPush, $rootScope, $cordovaSQLite) {
+.run(function($ionicPlatform, $cordovaPush, $rootScope, $cordovaSQLite, $timeout) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs) 
@@ -117,11 +119,18 @@ var app = angular.module('starter',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    
+    
+    if (deviceInformation == 'ios' || deviceInformation == 'android') {
+       db = $cordovaSQLite.openDB({name: "my.db", iosDatabaseLocation: 'default'});//device
+         
+       }
+       else{
+        db = window.openDatabase("my.db", '1', 'my', 1024 * 1024 * 100); // browser
+       
 
-    //db = $cordovaSQLite.openDB('my.db');
-      //      $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
-
-
+       }
+     
 
   });
 })
@@ -196,10 +205,17 @@ var app = angular.module('starter',
           controller: 'AddStudentCtrl'
         
     })
+  .state('tab.messages', {
+      url: '/messages/:classId',
+       
+          templateUrl: 'templates/messages.html',
+          controller: 'MessagesCntrl'
+        
+    })
   .state('tab.home', {
 
     url: '/home',
-     
+        
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl'
       

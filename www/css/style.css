@@ -14,7 +14,8 @@
 	padding-right: 5px;
 }
 #imgPost{
-	width: 100%
+	/*width: 103.8%;
+  margin-left: -6px;*/
 }
 #divLogin{
 	
@@ -26,16 +27,24 @@
 }
 #divListCardForActivities{
 	padding-top: 0px;
+  margin-bottom: -10px;
 
 }
+
+#activity-divider{
+  background-color: white;
+}
 #imgTakePicture{
-	height: 200px;
-	width: 290px;
+	height: 300px;
+	width: 100%;
 }
 .ion-images:before{
   font-size: 30px;
 }
 
+.button-post-activity{
+  margin-left: 36%;
+}
 button i.ion-ios-camera:before{
   font-size: 30px;
 }
@@ -59,6 +68,7 @@ button i.ion-ios-camera:before{
 }
 #divActivityHeader{
 	height: 60px;
+  border-width: 0px;
 }
 .item-body{
 	padding: 6px;
@@ -74,6 +84,41 @@ button i.ion-ios-camera:before{
 	color: white !important;
 	font-size: inherit;
 }
+
+/****  sendmessage-modal.html css *****/
+.receiver-message{
+    background-color: rgba(51, 205, 95, 0.68);
+    margin-bottom: 10px;
+    border-radius: 5px;
+    min-width: 30%;
+    max-width: 70%;
+    min-height: 40px;
+    margin-left: 1%;
+    margin-top: 10px; 
+}
+
+.sent-message{
+    background-color: #238df8;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    min-width: 30%;
+    max-width: 70%;
+    min-height: 40px;
+    margin-left: 40%; 
+    margin-top: 10px; 
+}
+.sent-date{
+    text-align: right;
+    color: white;
+    font-size: smaller;
+}
+.message-text{
+  color: white;
+  margin-left: 5px
+}
+.message-list{
+  margin-top: -45px;
+}
 /****  color for time in events *****/
 .event {
     color: #11c1f3;
@@ -82,6 +127,7 @@ button i.ion-ios-camera:before{
 #itemEventTime{
 	background-color: #F5F5F5
 }
+
 
 /****  size of buttons and font in activities page *****/
 
@@ -121,9 +167,51 @@ button i.ion-ios-camera:before{
 }
 
 div.img img {
-   width: 120%;
-height: 600px;
+   width: 100%;
+   height: 230px;
 } 
+
+.profile__image {
+    text-align: center;
+    line-height: 125px;
+    margin-left: 34px;
+    margin-bottom: 17px;
+    background: #4D4D4D;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding-top: 10px;
+    float: left;
+    
+    
+}
+.img_profile {
+  width: 40%;
+  height: 60%;
+  border-radius: 50%;
+}
+.row_img_profile{
+  margin-left: 0%;
+  margin-top: -15%;
+}
+.div-icon{
+  width: 60px;
+height: 60px;
+border-radius: 50%;
+background-color: white;
+border-width: 1px;
+border-color: #11c1f3;
+border-style: solid;
+margin-top: 10px;
+}
+.img_icons{
+  margin-left: 9%;
+  margin-top: 9%;
+}
 
 /* Style for form error's */
 .haserror {
@@ -134,7 +222,7 @@ height: 600px;
 }
 
 /* Style for login spinner in login.html */
-.spinner svg{
+.ion-spinner-login{
   position: relative;
     
     left: 45%;
@@ -169,3 +257,5 @@ font-size: 14px;
   text-align: center;
 }
   
+
+

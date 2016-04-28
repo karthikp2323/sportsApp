@@ -27,8 +27,8 @@
 
       
    </div>
-
-
+   
+   <img id="imgTakePicture" ng-hide="hideTakePicture" ng-src="{{imgURI}}">
  	 <div class="row" >
 
  	  <div class="col" ng-class="{'haserror': !activityForm.activityTitle.$valid}">
@@ -51,18 +51,18 @@
    	   </div>
  	</div>
 
- 	<img id="imgTakePicture" ng-hide="hideTakePicture" ng-src="{{imgURI}}">
+ 	
          <div class="row">
           <div class="col">
-            <button class="button button-icon" ng-click="takePhoto()">
+            <button class="button button-icon button-post-activity" ng-click="takePhoto()">
               <i class="ion-ios-camera"> <br> </i> </button>
           </div>
            <div class="col">
-             <button class="button button-icon" ng-click="choosePhoto()">
+             <button class="button button-icon button-post-activity" ng-click="choosePhoto()">
                <i class="ion-images"> <br> </i>  </button>
            </div>
            <div class="col">
-         	<button class="button button-icon" ng-click="savePost(activityForm.$valid)">
+         	<button class="button button-icon button-post-activity" ng-click="savePost(activityForm.$valid)">
                <i class="ion-ios-compose"> <br> </i>   </button>
          </div>
          </div>

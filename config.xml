@@ -1,5 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.dsigInc.schooljuntos" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+    
+Now, we can move all of our 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
   <name>SchoolJuntos</name>
   <description>
         An Ionic Framework and Cordova project.
@@ -7,7 +60,7 @@
   <author email="you@example.com" href="http://example.com.com/">
       Your Name Here
     </author>
-  <content src="index.html"/>
+  <content src="http://192.168.3.56:8100" original-src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
@@ -39,27 +92,15 @@
     <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
-
-    <platform name="ios">
-
-        <!-- iOS 7.0+ -->
-        <!-- iPhone App IOS 7-9 60pt, 2X, 3X -->
-         <icon src="icons/ios/icon-60.png" width="60" height="60" />
-         <icon src="icons/ios/icon-60@2x.png" width="120" height="120" />
-         <icon src="icons/ios/icon-60@3x.png" width="180" height="180" />
-
-        <!-- iPhone Spotlight IOS 7-9 40pt, 2X, 3X -->
-           <icon src="icons/ios/icon-40.png" width="40" height="40" />
-           <icon src="icons/ios/icon-40@2x.png" width="80" height="80" />
-           <icon src="icons/ios/icon-40@3x.png" width="120" height="120" />
-
-        <!-- iPhone Settings IOS 5-9 29pt, 2X, 3X -->
-           <icon src="icons/ios/icon-small.png" width="29" height="29" />
-           <icon src="icons/ios/icon-small@2x.png" width="58" height="58" />
-           <icon src="icons/ios/icon-small@3x.png" width="87" height="87" />
-
-        
-      
-    </platform>
-Now, we can move all of our 
+  <platform name="ios">
+    <icon src="icons/ios/icon-60.png" width="60" height="60"/>
+    <icon src="icons/ios/icon-60@2x.png" width="120" height="120"/>
+    <icon src="icons/ios/icon-60@3x.png" width="180" height="180"/>
+    <icon src="icons/ios/icon-40.png" width="40" height="40"/>
+    <icon src="icons/ios/icon-40@2x.png" width="80" height="80"/>
+    <icon src="icons/ios/icon-40@3x.png" width="120" height="120"/>
+    <icon src="icons/ios/icon-small.png" width="29" height="29"/>
+    <icon src="icons/ios/icon-small@2x.png" width="58" height="58"/>
+    <icon src="icons/ios/icon-small@3x.png" width="87" height="87"/>
+  </platform>
 </widget>

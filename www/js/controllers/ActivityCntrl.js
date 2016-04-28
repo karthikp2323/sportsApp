@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ActivityCntrl', function($scope, $state, $http, $cordovaCamera, $cordovaFileTransfer, $base64, $stateParams, $ionicPlatform, $location, $ionicHistory, $ionicPopup, $timeout, Parent) {
+app.controller('ActivityCntrl', function($scope, $state, $http, $cordovaCamera, $cordovaFileTransfer, $base64, $stateParams, $ionicPlatform, $location, $ionicHistory, $ionicPopup, $timeout, $filter, Parent) {
    //alert("Hi");
    
    $ionicPlatform.registerBackButtonAction(function (event) { 
@@ -9,8 +9,11 @@ app.controller('ActivityCntrl', function($scope, $state, $http, $cordovaCamera, 
 
    
    $scope.activityList = [];
+   $scope.studentList = [];
    $scope.ifNoActivities = false;
    $scope.noMoreItemsAvailable = false;
+   var lastActivityId = "";
+   var firstActivityId = "";
 
    if (window.localStorage['role'] == 'Parent') {
 
@@ -26,7 +29,8 @@ app.controller('ActivityCntrl', function($scope, $state, $http, $cordovaCamera, 
                 else{
                   $scope.ifNoActivities = false;
                   angular.forEach(response, function(child){
-                        
+                        child.time_at = child.created_at;
+                        child.created_at = $filter('date')(child.created_at)
                         if (child.image_url.indexOf("missing") > -1) {    
                         child.checkimage_url = false;} 
                         else{ child.checkimage_url = true; };
@@ -43,24 +47,47 @@ app.controller('ActivityCntrl', function($scope, $state, $http, $cordovaCamera, 
      $scope.activityList = [];
      $scope.class_id = $stateParams.classId;
 
-     $http.get('http://45.55.47.132/api/activities/getActivities?class_id=' + $scope.class_id + '&user_id=' + window.localStorage['user_id'] + '&page=1' ) 
+     $http.get('http://localhost:3000/api/activities/getActivities?class_id=' + $scope.class_id + '&user_id=' + window.localStorage['user_id'] + '&role_type=Teacher' + '&page=1' ) 
            .success(function(response){
-            if (response.length == 0) {
+            if (response.activities.length == 0) {
               $scope.ifNoActivities = true;
             }
             else{
               $scope.ifNoActivities = false;
-              angular.forEach(response, function(child){
+
+              //To load the activities
+              angular.forEach(response.activities, function(child){
+                  child.time_at = child.created_at;
+                  child.created_at = $filter('date')(child.created_at)
 
                   if (child.image_url.indexOf("missing") > -1) {    
                   child.checkimage_url = false;} 
                   else{ child.checkimage_url = true; };
                 
-               $scope.activityList.push(child);        
-              });
-            }
+               lastActivityId = child.id;
 
-          });
+               $scope.activityList.push(child);        
+              }); //EOF for each
+
+              //To load the student details
+              angular.forEach(response.students, function(child){
+                
+                if(child != null)
+                {
+                  child.first_name = "with " + child.first_name + " " +child.last_name;
+                  console.log(child.first_name);
+                }
+               $scope.studentList.push(child);        
+
+              }); //EOF for each
+
+              
+            } //EOF else
+            firstActivityId = $scope.activityList[0].id;
+            console.log($scope.activityList);
+            console.log($scope.studentList);
+            console.log(lastActivityId);
+          }); //EOF success function
 
     }
 $scope.goToPostActivity = function(class_id) {
@@ -104,67 +131,84 @@ $scope.loadOlderStories = function(class_id){
 
     function loadNewerStories(class_id, role_type){
 
-      $http.get('http://45.55.47.132/api/activities/getActivities?class_id=' + class_id + '&user_id=' + window.localStorage['user_id'] + 
-                '&page=1' + '&role_type=' + role_type + '&student_id=' + class_id ) 
+      $http.get('http://localhost:3000/api/activities/getActivities?class_id=' + class_id + '&user_id=' + window.localStorage['user_id'] + 
+                '&page=1' + '&role_type=' + window.localStorage['role'] + '&student_id=' + class_id +'&first_activity_id=' + firstActivityId) 
            .success(function(response){
 
             $scope.noMoreItemsAvailable = false;
-
-
-            if (response.length == 0) {
-              $scope.ifNoActivities = true;
-            }
-            else{
-              $scope.ifNoActivities = false;
-              $scope.activityList = [];
-              angular.forEach(response, function(child){
-
+            
+              //Load activities
+              angular.forEach(response.activities, function(child){
+                  child.time_at = child.created_at;
+                  child.created_at = $filter('date')(child.created_at)
                   if (child.image_url.indexOf("missing") > -1) {    
                   child.checkimage_url = false;} 
                   else{ child.checkimage_url = true; };
 
-               $scope.activityList.push(child);        
-              });
-            }
+               $scope.activityList.unshift(child);        
+              }); //EOF Load activities.
+
+               //To load the student details
+              angular.forEach(response.students, function(child){
+                
+                if(child != null)
+                {
+                  child.first_name = "with " + child.first_name + " " +child.last_name;
+                  console.log(child.first_name);
+                }
+               $scope.studentList.unshift(child);        
+
+              }); //EOF for each
+
+              console.log($scope.activityList);
+            
              $scope.$broadcast('scroll.refreshComplete');
-          });
+          }); //EOF success function
 
     }
 
     function loadOlderStories(class_id, role_type){
 
-       var  concatList = [];
-       var activitieslength = $scope.activityList.length;
-       var page = (activitieslength / 7) + 1;
-       if (activitieslength > 0 && (activitieslength % 7) == 0 ) {
+    
         
-          $http.get('http://45.55.47.132/api/activities/getActivities?class_id=' + class_id + 
-                    '&user_id=' + window.localStorage['user_id'] + '&page=' + page + '&role_type=' + role_type + '&student_id=' + class_id) 
+          $http.get('http://localhost:3000/api/activities/getActivities?class_id=' + class_id + 
+                    '&user_id=' + window.localStorage['user_id']  + '&role_type='+ window.localStorage['role'] + '&student_id=' + class_id +'&last_activity_id='+ lastActivityId) 
                  .success(function(response){
                   
-                    if (response.length == 0) // This if condition eliminates adding empty array to scope and rehitting to the databse.
+                    if (response.activities.length == 0) // This if condition eliminates adding empty array to scope and rehitting to the databse.
                       { 
                         
                         $scope.noMoreItemsAvailable = true;
 
                       }
 
-                    angular.forEach(response, function(child){
-
+                    angular.forEach(response.activities, function(child){
+                        child.time_at = child.created_at;
+                        child.created_at = $filter('date')(child.created_at)
+                       
                         if (child.image_url.indexOf("missing") > -1) {    
                         child.checkimage_url = false;} 
                         else{ child.checkimage_url = true; };
 
-                        concatList.push(child);        
-                    });  
-                   $scope.activityList = $scope.activityList.concat(concatList);
+                        $scope.activityList.push(child); 
+                        lastActivityId = child.id;       
+                    }); 
+
+                    //To load the student details
+                    angular.forEach(response.students, function(child){
+                      
+                      if(child != null)
+                      {
+                        child.first_name = "with " + child.first_name + " " +child.last_name;
+                        
+                      }
+                     $scope.studentList.push(child);        
+
+                    }); //EOF for each
+
+                   console.log($scope.activityList);
                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
-    }
-    else{
-    $scope.noMoreItemsAvailable = true;
-    $scope.$broadcast('scroll.infiniteScrollComplete'); }
-
 
   
 }
