@@ -1,0 +1,40 @@
+
+<ion-view view-title="Settings">
+	
+<div class="img">
+	<img ng-src="img/homeimage.jpg">
+	
+</div>
+
+<div class="row row_img_profile" >
+	<div class="">
+		<div>
+    	   <img ng-hide="defaultImage" class="img_profile" ng-src="{{imageUrl}}"> 
+    	   
+        </div>
+        <div style="margin-top: -18px; margin-left: 9%;">
+    	<button class="button button-icon" ng-click="takePhoto()" style="font-size: 10px;">
+              <i class="icon ion-ios-camera"></i> Edit </button>
+        </div>
+    
+
+    <h3 style="margin-left: 25px; font-weight: 200;">
+    	<i class="icon ion-ios-person"></i> {{username}}</h3>
+    <h5 style="margin-left: 25px; font-weight: 200;">
+    	<i class="icon ion-ios-telephone"></i> &nbsp; {{userDetails.contact}} </h5>
+    <h5 style="margin-left: 25px; font-weight: 200;">
+    	<i class="icon ion-ios-email"></i> &nbsp; {{userDetails.email_id}}</h5>
+    <h5 ng-hide="notParent" style="margin-left: 25px; font-weight: 200;"> 
+    	<i class="icon ion-ios-location"></i> &nbsp; {{userDetails.school_name}} </h5>
+    
+	</div>
+
+</div>
+
+	
+
+
+	
+
+
+</ion-view>

@@ -4,7 +4,7 @@ app.factory('EventDetail', ['$http', function($http, $scope) {
 
 	function updateEvent(event_id, parent_id, event_status_id, action, lblStatusValue, lblOptionValue){
 		$http({
-                url: 'http://45.55.47.132/api/events/updateEventStatus',
+                url: 'http://www.schooljuntos.com/api/events/updateEventStatus',
                 method: "post",
                 transformRequest: function(obj) {
                          var str = [];

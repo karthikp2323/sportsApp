@@ -1,37 +1,39 @@
 
   <ion-modal-view>
-    <ion-header-bar>
-      <button class="button button-clear button-positive" ng-click="closeModal()"> Cancel </button>
-      <h1 class="title">{{parentName}}</h1>
+    <ion-header-bar style="background-color: #11c1f3;">
+      <button style="color: white;" class="button button-clear button-positive" ng-click="closeModal()"> Cancel </button>
+      <h1 class="title" style="color: white;">{{parentName}}</h1>
       
     </ion-header-bar>
-    <ion-content style="bottom: 100px;" delegate-handle="modalContent">
+    <ion-content  style="bottom: 75px;" delegate-handle="modalContent">
 
     <ion-list ng-repeat="(key, value) in messageList | groupBy: 'created_date'">
       <div class="message-list">
       <div class="item item-divider" id="activity-divider" ion-affix data-affix-within-parent-with-class="list">
-        <h2> {{key}} </h2>
+        <h2 style="font-size: 10px;"> {{key}} </h2>
       </div>
 
       <div ng-repeat="message in value">
-        <div ng-class="{'receiver-message' : message.sender_id == '{{parentid}}' ,'sent-message': message.sender_id == '{{userDetails.id}}'}">
+        <div ng-class="{'receiver-message' : message.sender_id == '{{receiverId}}' ,'sent-message': message.sender_id == '{{userDetails.id}}'}">
         <p class="message-text"> {{message.message_text}} </p>
-        <p class="sent-date">sent at: {{message.created_at | date: 'shortTime'}} </p>
+        <p ng-if="message.boolean_receiver" class="sent-date">received at: {{message.created_at | date: 'shortTime'}} </p>
+        <p ng-if="message.boolean_sender" class="sent-date">sent at: {{message.created_at | date: 'shortTime'}} </p>
         </div>
        </div> 
        </div>
 </ion-list>
-	     
+       
+       
 
     </ion-content>
-      <div class="bar bar-footer" style="height: 85px;">
-        <textarea rows="4" cols="50"  placeholder="Say something more.." ng-model="message.text" >
+       <ion-footer-bar align-title="left" keyboard-attach >
+         <textarea rows="4" placeholder="Message..." ng-click="scrollDown()" ng-model="message.text" style="width: 85%;" >
               
         </textarea>
 
         <button class="button button-clear" ng-click="sendMessage()" style="color: black;">
           Send
         </button>
-      </div>
+       </ion-footer-bar>
   </ion-modal-view>
 

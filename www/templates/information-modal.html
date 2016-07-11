@@ -1,0 +1,73 @@
+
+  <ion-modal-view>
+    <ion-header-bar>
+      <button class="button button-clear button-positive" ng-click="closeModal()"> Close </button>
+      <h1 class="title">Information</h1>
+      
+    </ion-header-bar>
+    <ion-content>
+	      <div ng-if="notParent" class="list" style="margin-top: -54px;">
+          <div class="bar bar-header item-input-inset">
+    
+              <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" ng-model="searchText" placeholder="Search">
+              </label>
+
+              <button class="button button-clear" ng-click="searchText = '' ">
+                Cancel
+              </button>
+
+          </div>
+          
+            <ion-item class="item item-icon-left item-divider">
+                
+                <h2 style="margin-left: -37px;"> Registered Students</h2>
+              </ion-item>
+
+            <div ng-repeat="student in RegisteredStudentList | filter:searchText">
+
+                  <a id="itemUserList" class="item item-avatar"  href="#">
+                    <img src="img/Student-48.png">
+                    <div class="row" style="margin-top: -10px;">
+                      <div class="col"> 
+                        <h2> {{student['0'].first_name}} {{student['0'].last_name}} </h2> 
+                        <p> Parent: {{student['1'].dad_fname}} {{student['1'].dad_lname}} </p>
+                      </div>
+                
+                    </div>
+                  </a>
+
+            </div>
+
+      </div>
+
+     <div ng-if="Parent" class="list" style="margin-top: -54px;">  
+              <ion-item class="item item-icon-left item-divider">
+                
+                <h2 style="margin-left: -37px;"> Registered Classes</h2>
+              </ion-item>
+          <div  ng-if="Parent" ng-repeat="teacher in RegisteredClassesList">
+
+                <a id="itemUserList" class="item item-avatar"  href="#">
+                  <img src="img/Training-48.png">
+                  <div class="row" style="margin-top: -10px;">
+                    <div class="col">
+                      <h2>  {{teacher['1'].class_name}} </h2>
+                      
+                   <p> Teacher: {{teacher['0'].first_name}} {{teacher['0'].last_name}} </p>
+                  </div>
+                 
+               </div>
+                </a>
+
+          </div>
+		   
+      </div>
+		   
+
+		   </div>
+
+    </ion-content>
+  </ion-modal-view>
+

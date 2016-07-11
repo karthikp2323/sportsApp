@@ -27,7 +27,8 @@
     "cordova-plugin-transport-security",
     "cordova-plugin-file-transfer",
     "org.apache.cordova.file-transfer",
-    "cordova-plugin-inappbrowser"
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-file"
   ],
   "cordovaPlatforms": [
     "ios",

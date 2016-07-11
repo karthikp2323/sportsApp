@@ -14,7 +14,7 @@ if (window.localStorage['role'] == "Parent") {
   $scope.string_student_Ids = "";
   
      //get class list
-     $http.get('http://45.55.47.132/api/parents/getChildList?parent_id= ' + window.localStorage['parent_id']) 
+     $http.get('http://www.schooljuntos.com/api/parents/getChildList?parent_id= ' + window.localStorage['parent_id']) 
            .success(function(response){
             
             angular.forEach(response, function(child){
@@ -35,7 +35,7 @@ if (window.localStorage['role'] == "Parent") {
      $scope.isTeacher = true;
      $scope.sideMenu = [];
      //get class list
-     $http.get('http://localhost:3000/api/school_users/getClassList?user_id= ' + window.localStorage['user_id'] + '&school_id=' + window.localStorage['school_id']) 
+     $http.get('http://www.schooljuntos.com/api/school_users/getClassList?user_id= ' + window.localStorage['user_id'] + '&school_id=' + window.localStorage['school_id']) 
            .success(function(response){
             
             angular.forEach(response, function(child){

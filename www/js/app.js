@@ -10,17 +10,25 @@ var app = angular.module('starter',
   'ion-affix'
    ])
 
-.run(function($ionicPlatform, $cordovaPush, $rootScope, $cordovaSQLite, $timeout) {
+.run(function($ionicPlatform, $cordovaPush, $rootScope, $cordovaSQLite, $timeout, Database) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs) 
   
-    //alert("db");
-    //window.openDatabase("my.db", '1', 'my', 1024 * 1024 * 100); 
-    //$cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS people (id integer primary key, firstname text, lastname text)");
-    //alert(result);
+  
 
   var deviceInformation = ionic.Platform.platform();
+
+  if (deviceInformation == 'ios' || deviceInformation == 'android') {
+       db = $cordovaSQLite.openDB({name: "my.db", iosDatabaseLocation: 'default'});//device
+         
+       }
+       else{
+        db = window.openDatabase("my.db", '1', 'my', 1024 * 1024 * 100); // browser
+       
+
+       }
+     
   
   switch(deviceInformation){
     case 'ios':
@@ -35,10 +43,20 @@ var app = angular.module('starter',
                 document.addEventListener("deviceready", function(){
                   $cordovaPush.register(iosConfig).then(function(deviceToken) {
                     // Success -- send deviceToken to server, and store for future use
-                    alert("deviceToken: " + deviceToken)
-                    $http.post("http://server.co/", {user: "Bob", tokenID: deviceToken})
+                    $rootScope.deviceToken =  deviceToken; 
+                    $rootScope.deviceType = deviceInformation;
+                    Database.getUserData("deviceToken").then(function(res){
+                        
+                        if (res.rows == undefined) {
+                          Database.SaveDeviceToken(deviceInformation, deviceToken);
+                        
+                        }
+                 
+                    });
+                    
                   }, function(err) {
-                    alert("Registration error: " + err)
+                    //alert("Registration error: " + err)
+                    
                   })
                 });   
 
@@ -107,7 +125,7 @@ var app = angular.module('starter',
 
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+      //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
       cordova.plugins.Keyboard.disableScroll(true);
     }
 
@@ -121,16 +139,6 @@ var app = angular.module('starter',
     }
     
     
-    if (deviceInformation == 'ios' || deviceInformation == 'android') {
-       db = $cordovaSQLite.openDB({name: "my.db", iosDatabaseLocation: 'default'});//device
-         
-       }
-       else{
-        db = window.openDatabase("my.db", '1', 'my', 1024 * 1024 * 100); // browser
-       
-
-       }
-     
 
   });
 })
@@ -162,7 +170,7 @@ var app = angular.module('starter',
   })
 
     .state('tab.classActivities', {
-      url: '/class/:classId',
+      url: '/class/:classId/:name',
       
           templateUrl: 'templates/classActivities.html',
           controller: 'ActivityCntrl'
@@ -210,6 +218,13 @@ var app = angular.module('starter',
        
           templateUrl: 'templates/messages.html',
           controller: 'MessagesCntrl'
+        
+    })
+  .state('tab.updateProfile', {
+      url: '/updateProfile',
+       
+          templateUrl: 'templates/updateProfile.html',
+          controller: 'UpdateProfileCtrl'
         
     })
   .state('tab.home', {

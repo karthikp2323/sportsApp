@@ -9,7 +9,7 @@ app.controller('EventDetailCntrl', function($scope, $http, $stateParams, $ionicP
     $scope.accptedParents = [];
 
     $scope.eventDetail;
-     $http.get("http://45.55.47.132/api/events/getEventDetail?eventId="+ $stateParams.eventId + "&role_type=" + window.localStorage["role"] + "&parent_id=" + window.localStorage['parent_id'])
+     $http.get("http://www.schooljuntos.com/api/events/getEventDetail?eventId="+ $stateParams.eventId + "&role_type=" + window.localStorage["role"] + "&parent_id=" + window.localStorage['parent_id'])
            .success(function(response){
             $scope.eventDetail = response; 
             console.log($scope.eventDetail.table)
@@ -37,7 +37,7 @@ app.controller('EventDetailCntrl', function($scope, $http, $stateParams, $ionicP
         var selectedOption = $scope.myOption.value;
         //Passing eventId, selectedOption, classroom_id to get the event user details
         if (selectedOption == 'Invited') {
-          $http.get("http://45.55.47.132/api/events/eventUserDetailList?eventId="+ $stateParams.eventId + "&selectedOption="+selectedOption + "&classroom_id=" + $stateParams.classroomId)
+          $http.get("http://www.schooljuntos.com/api/events/eventUserDetailList?eventId="+ $stateParams.eventId + "&selectedOption="+selectedOption + "&classroom_id=" + $stateParams.classroomId)
              .success(function(response){
               
               $scope.accptedParents = response; 
@@ -46,7 +46,7 @@ app.controller('EventDetailCntrl', function($scope, $http, $stateParams, $ionicP
         } 
         else if(selectedOption == 'Accepted'){
 
-            $http.get("http://45.55.47.132/api/events/eventUserDetailList?eventId="+ $stateParams.eventId + "&selectedOption="+selectedOption)
+            $http.get("http://www.schooljuntos.com/api/events/eventUserDetailList?eventId="+ $stateParams.eventId + "&selectedOption="+selectedOption)
              .success(function(response){
               
               $scope.accptedParents = response; 
@@ -55,7 +55,7 @@ app.controller('EventDetailCntrl', function($scope, $http, $stateParams, $ionicP
         }
         else{
 
-            $http.get("http://45.55.47.132/api/events/eventUserDetailList?eventId="+ $stateParams.eventId + "&selectedOption="+selectedOption)
+            $http.get("http://www.schooljuntos.com/api/events/eventUserDetailList?eventId="+ $stateParams.eventId + "&selectedOption="+selectedOption)
              .success(function(response){
               
               $scope.accptedParents = response; 

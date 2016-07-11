@@ -39,7 +39,7 @@
     <div class="col" ng-class="{'haserror': !eventForm.eventDate.$valid}">
      <label class="item item-input item-stacked-label">
         <span class="input-label">Event Date</span>
-        <input type="month" name="eventDate" id="txtEventDate" placeholder="Mon dd, yyyy" ng-model="newEvent.date" required >
+        <input type="date" name="eventDate" id="txtEventDate" placeholder="Mon dd, yyyy" ng-model="newEvent.date" required >
        </label>
        </div>
      
@@ -66,7 +66,7 @@
  	
          <div class="row">
           <div class="col">
-            <button class="button button-block button-positive"
+            <button ng-disabled="eventSaved" class="button button-block button-positive"
         ng-click="createNewEvent(eventForm.$valid)">Create Event</button>
             
           </div>

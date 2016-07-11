@@ -44,7 +44,14 @@
     </div>
   </div>
 <!-- EOF div for header buttons-->      
-  
+    
+     <div style="margin-bottom: -30px;"  >
+    <div class="row" id="divActivityOptions" ng-if="Parent">
+     <img class="img-student" src='img/Student-48.png'> <h3 class="header-student-name"> {{name}} </h3>
+      
+    </div>
+  </div>
+
      <button ng-if="ifNoActivities" class="button icon-left ion-happy-outline button-full button-stable">
       No Activities to show now
      </button>
@@ -64,8 +71,8 @@
         
         <!-- activity title div-->
         <div id="divActivityHeader" class="item item-avatar">
-          <img src='img/mike.png'>
-          <h2>{{activity.title}} <b>   </b> </h2>
+          <img src='img/Megaphone-48.png'>
+          <h2>{{activity.title}}<b>   </b> </h2>
           <h4 style="color: rgb(132, 132, 132);"><i class="ion-clock"></i> {{activity.time_at | date : "h:mma"}} {{(studentList | filter : {id: activity.student_id})[0].first_name}}</h4>
         </div>
 
@@ -108,13 +115,19 @@
   </ion-content>
   
   <div class="bar bar-footer">
-    <a class="tab-item" href="#">
-            <i class="icon ion-"></i> </a>
-          
-          <a class="tab-item" href="#tab/messages/{{class_id}}">
-            <i class="icon ion-ios-email-outline"></i> </a>
+          <a class="tab-item" href="#" ng-click="openModal()">
+            <i class="icon ion-ios-information-outline"></i> </a>
+           
           <a class="tab-item" href="#">
             <i class="icon ion-"></i> </a>
+
+          <a ng-if="notParent" class="tab-item" href="#tab/messages/{{class_id}}">
+            <i class="icon ion-ios-email-outline"></i> </a>
+
+          <a ng-if="Parent" class="tab-item" href="#tab/messages/{{student_id}}">
+            <i class="icon ion-ios-email-outline"></i> </a>
+          
+         
   </div>
 </ion-view>
    

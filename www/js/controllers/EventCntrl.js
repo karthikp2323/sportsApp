@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EventCntrl', function($scope, $http, $state, $cordovaDatePicker, $stateParams, $ionicPopup, $timeout) {
+app.controller('EventCntrl', function($scope, $ionicLoading, $http, $state, $cordovaDatePicker, $stateParams, $ionicPopup, $timeout) {
 
   $scope.newEvent = {
     title: '',
@@ -65,15 +65,24 @@ app.controller('EventCntrl', function($scope, $http, $state, $cordovaDatePicker,
   // Saving event to the database.
   $scope.createNewEvent = function(formValid){
 
+    // Setup the loader
+      $ionicLoading.show({
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+
     if(formValid == false){
-     var alertPopup = $ionicPopup.alert({
-     title: 'Create Error!',
-     template: 'Please provide required details.'
-    });
 
-    exit;
-
-    };
+       $ionicLoading.hide();
+       var alertPopup = $ionicPopup.alert({
+         title: 'Create Error!',
+         template: 'Please provide required details.'
+       });
+    }
+    else{
     var date = document.getElementById('txtEventDate').value;
     var time = document.getElementById('txtEventTime').value;
     //var toFormatDate = moment(date, "llll");
@@ -82,7 +91,7 @@ app.controller('EventCntrl', function($scope, $http, $state, $cordovaDatePicker,
 
 
     $http({
-            url: 'http://45.55.47.132/api/events',
+            url: 'http://www.schooljuntos.com/api/events',
             method: "post",
             transformRequest: function(obj) {
                       var str = [];
@@ -101,7 +110,8 @@ app.controller('EventCntrl', function($scope, $http, $state, $cordovaDatePicker,
             headers: {'content-type': 'application/x-www-form-urlencoded; charset=utf-8'}
         }).success(function (status) {
                 
-               //$scope.divResult = false;
+               $ionicLoading.hide();
+               $scope.eventSaved = true;
                var alertPopup = $ionicPopup.alert({
                  title: 'Message',
                  template: 'Event Created!'
@@ -109,7 +119,8 @@ app.controller('EventCntrl', function($scope, $http, $state, $cordovaDatePicker,
             }).error(function (status) {
                alert("Oops! Something has gone wrong.");
             });
+    }
 
-  }
+  }//EOF create event
 
 });

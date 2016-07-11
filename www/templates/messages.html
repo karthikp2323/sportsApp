@@ -7,21 +7,46 @@
 	  
 	  <label class="item-input-wrapper">
 	    <i class="icon ion-ios-search placeholder-icon"></i>
-	    <input type="search" placeholder="Search">
+	    <input type="search" ng-model="searchText" placeholder="Search">
 	  </label>
 
-	  <button class="button button-clear">
+	  <button class="button button-clear" ng-click="searchText = '' ">
 	    Cancel
 	  </button>
 
 	</div>
 
-	<div  ng-repeat="student in StudentList">
+	<div  ng-if="Teacher" ng-repeat="student in StudentList | filter:searchText">
 
           <a id="itemUserList" class="item item-avatar" ng-click="openModal(student['1'].id, student['1'].dad_fname + student['1'].dad_lname)" href="#">
-            <img src="img/ionic.png">
-            <h2> {{student['1'].dad_fname}} {{student['1'].dad_lname}} </h2> 
-		     <p> Student: {{student['0'].first_name}} {{student['0'].last_name}} </p>
+            <img src="img/Parent-48.png">
+            <div class="row" style="margin-top: -10px;">
+            	<div class="col">	
+		            <h2> {{student['1'].dad_fname}} {{student['1'].dad_lname}} </h2> 
+				     <p> Student: {{student['0'].first_name}} {{student['0'].last_name}} </p>
+				</div>
+				<div id="{{student['1'].id}}" class="col unread-mess" ng-if="(unreadCount | filter : {parent_id: student['1'].id })[0].unread_messages > 0">
+				     	<p class="unread-messages"> {{(unreadCount | filter : {parent_id: student['1'].id })[0].unread_messages}}</p> 
+				</div>
+		     </div>
+          </a>
+
+    </div>
+
+    <div  ng-if="Parent" ng-repeat="teacher in TeacherList | filter:searchText">
+
+          <a id="itemUserList" class="item item-avatar" ng-click="openModal(teacher['0'].id, teacher['0'].first_name + teacher['0'].last_name, teacher['1'].id )" href="#">
+            <img src="img/Training-48.png">
+            <div class="row" style="margin-top: -10px;">
+            	<div class="col">
+		            <h2> {{teacher['0'].first_name}} {{teacher['0'].last_name}} </h2>
+		            
+				     <p> Class: {{teacher['1'].class_name}}  </p>
+		        </div>
+			     <div id="{{teacher['0'].id}}" class="col unread-mess" ng-if="(unreadCount | filter : {school_user_id: teacher['0'].id} && {classroom_id : teacher['1'].id })[0].unread_messages > 0">
+			     	<p class="unread-messages"> {{(unreadCount | filter : {school_user_id: teacher['0'].id} && {classroom_id : teacher['1'].id })[0].unread_messages}}</p> 
+			     </div>
+		     </div>
           </a>
 
     </div>

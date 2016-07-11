@@ -1,5 +1,5 @@
 
-app.controller('UpComingActivitiesCntrl', function($scope, $http, $stateParams, Parent) {
+app.controller('UpComingActivitiesCntrl', function($scope, $rootScope, $http, $stateParams, Parent, Database) {
   "use strict";
   // With "use strict", Dates can be passed ONLY as strings (ISO format: YYYY-MM-DD)
 
@@ -38,11 +38,45 @@ $scope.options = {
     },
   };
 
+Database.getUserData("role").then(function(res){
+        var role_type = res.rows.item(0).role_type;
 
-if ($stateParams.classId != 0) { 
+        if (role_type == "Teacher") {
+        Database.getUserData("user").then(function(res){
+            $scope.userDetails = res.rows.item(0);
+            
+            if ($stateParams.classId != 0) {
+              eventsForTeacher();
+            }
+            else{
+              allEvents();  
+            }  
+            
+        });
+      }
+      else{
+        Database.getUserData("parent").then(function(res){
+          $scope.notParent = true;
+            $scope.userDetails = res.rows.item(0);
+            
+            if ($stateParams.classId != 0) {
+              eventsForParent();
+            }
+            else{
+              allEvents();
+            }   
+        });
+
+      } 
+
+
+    }); //EOF getUserData()
+
+
   //Get events for parent
-  if (window.localStorage['role'] == "Parent") {
-          $http.get('http://45.55.47.132/api/events/getEventForParent?student_Ids='+ $stateParams.classId)
+  function eventsForParent(){
+  
+          $http.get('http://www.schooljuntos.com/api/events/getEventForParent?student_Ids='+ $stateParams.classId)
                     .success(function(response){
                     $scope.isVisible = true;    
                     $scope.ifParent = true;
@@ -58,9 +92,11 @@ if ($stateParams.classId != 0) {
               
               });
           }); 
+    
   }
-  else{
-        $http.get('http://45.55.47.132/api/events/getEventForClass?classroom_id='+ $stateParams.classId)
+  
+  function eventsForTeacher(){
+        $http.get('http://www.schooljuntos.com/api/events/getEventForClass?classroom_id='+ $stateParams.classId)
                     .success(function(response){
                     $scope.isVisible = true;    
                     $scope.ifTeacher = true;
@@ -75,11 +111,11 @@ if ($stateParams.classId != 0) {
             });
         });
       }
-}
+
 
 //Get events for all classes                  
-    else{
-      $http.get('http://45.55.47.132/api/events/getEvent?user_role=Teacher&user_id='+window.localStorage['user_id'])
+    function allEvents(){
+      $http.get('http://www.schooljuntos.com/api/events/getEvent?user_role='+ $scope.userDetails.role_type +'&user_id='+$scope.userDetails.id)
                         .success(function(response){
                         $scope.isVisible = true;    
                         $scope.ifTeacher = true;
@@ -92,7 +128,7 @@ if ($stateParams.classId != 0) {
                 
                 });
          });
-    }
+   }
         
    $scope.showCalendar = function(){
     $scope.btnHdnShowCalendar = true;

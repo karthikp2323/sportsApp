@@ -1,7 +1,8 @@
 'use strict';
 
-app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $state, $cordovaDatePicker, $stateParams, $ionicPopup, $ionicModal) {
- 
+app.controller('PostActivityCtrl', function($scope, $ionicLoading, $http, $cordovaCamera, $state, $cordovaDatePicker, $stateParams, $ionicPopup, $ionicModal) {
+
+
   var students_list = [];
 
 
@@ -15,6 +16,7 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
         id: ' ',
         choice: ' '
   };
+
 
   $scope.hideTakePicture = true;
 
@@ -86,18 +88,28 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
 
   $scope.savePost = function(formValid){
 
+     // Setup the loader
+      $ionicLoading.show({
+        content: 'Loading',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 0
+      });
+
     if(formValid == false)
     {
+      $ionicLoading.hide();
       var alertPopup = $ionicPopup.alert({
        title: 'Post Error!',
        template: 'Please provide required details.'
       });
-      exit;
+      
     }
    //var imageUrl = element.find("imgTakePicture"); 
-
-    $http({
-            url: 'http://localhost:3000/api/activities',
+    else{
+     $http({
+            url: 'http://www.schooljuntos.com/api/activities',
             method: "post",
             transformRequest: function(obj) {
                       var str = [];
@@ -119,7 +131,8 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
         }).success(function (status) {
                //alert("Succ");
                //$state.go('tab.classActivities')
-               //$scope.divResult = false;
+               $ionicLoading.hide();
+               $scope.postSaved = true;
                var alertPopup = $ionicPopup.alert({
                  title: 'Message',
                  template: 'Activity Posted!'
@@ -127,8 +140,8 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
             }).error(function (status) {
                //alert("Err");
             });
-  
-  }
+    }
+  }//EOF function save post
   
   $scope.setStudentName = function(studentId){
     $scope.selectStudent.name = angular.element(document.querySelector('#headerStudentName'+studentId))[0].outerText;
@@ -155,10 +168,10 @@ app.controller('PostActivityCtrl', function($scope, $http, $cordovaCamera, $stat
                
                $scope.modal.show();
                if($scope.StudentList.length == 0){ 
-                  $http.get('http://localhost:3000/api/students/getStudentsForClass?classroomId='+$scope.classId) 
+                  $http.get('http://www.schooljuntos.com/api/students/getStudentsForClass?classroomId='+$scope.classId) 
                      .success(function(response){
                   
-                      $scope.StudentList = response; 
+                      $scope.StudentList = response.studentParentData; 
                      
                   });
                 }
